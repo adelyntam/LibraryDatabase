@@ -1,0 +1,35 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Maven
+target/
+dependency-reduced-pom.xml
+pom.xml.versionsBackup
+
+# MySQL
+# Ignore local MySQL dump files
+*.sql~
+*.bak
+*.dump
+
+# Build files
+*.war
+*.class
+*.jar
+
+# Logs
+*.log
+logs/
+
+# Environment/config files
+# Exclude db credentials (e.g., db.properties)
+*.properties
+.env
+
+# OS metadata
+.DS_Store
+Thumbs.db

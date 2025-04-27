@@ -30,7 +30,7 @@
                             <c:when test="${book.is_available}">
                             <!-- Borrow Form -->
                             <form action="borrow" method="post" style="display: inline;">
-                                <input type="hidden" name="bookId" value="${book.book_id}" />
+                                <input type="hidden" name="bookId" value="${book.bookId}" />
                                 <button type="submit" class="btn btn-success btn-sm">Borrow</button>
                             </form>
                             </c:when>
@@ -40,7 +40,7 @@
                         </c:choose>
                     </td>
                     <td>
-                        <a href="library?action=view&id=${book.book_id}" class="btn btn-primary btn-sm">
+                        <a href="library?action=view&id=${book.bookId}" class="btn btn-primary btn-sm">
                             View
                         </a>
                     </td>

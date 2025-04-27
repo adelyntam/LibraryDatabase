@@ -17,10 +17,10 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/books">View Books</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/bookListView">View Books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/borrow_return">Borrow/Return</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/requestBookView_Mem">Request</a>
                     </li>
                 </ul>
             </div>

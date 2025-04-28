@@ -39,22 +39,22 @@ INSERT INTO Members (name, email, membership_date) VALUES
 ('Naafiri', 'naafiri@example.com', '2024-09-01')
 ;
 
-INSERT INTO Books (book_id, title, author_id, genre, publish_year, is_available) VALUES
-(1, 'A Tale of Two Cities', 1, 'Historical fiction', 1859, TRUE),
-(2, 'The Little Prince', 2, 'Fantasy', 1943, TRUE),
-(3, 'The Alchemist', 3, 'Fantasy', 1988, FALSE),
-(4, 'Harry Potter and the Philosopher''s Stone', 4, 'Fantasy', 1997, FALSE),
-(5, 'And Then There Were None', 5, 'Mystery', 1939, FALSE),
-(6, 'Dream of the Red Chamber', 6, 'Family saga', 1791, FALSE),
-(7, 'The Hobbit', 7, 'Fantasy', 1937, TRUE),
-(8, 'Alice''s Adventures in Wonderland', 8, 'Fantasy', 1865, TRUE),
-(9, 'The Lion, the Witch and the Wardrobe', 9, 'Fantasy', 1950, FALSE),
-(10, 'She: A History of Adventure', 10, 'Adventure', 1887, TRUE),
-(11, 'The Da Vinci Code', 11, 'Mystery thriller', 2003, FALSE),
-(12, 'The Catcher in the Rye', 12, 'Coming-of-age', 1951, TRUE),
-(13, 'The Bridges of Madison County', 13, 'Romance', 1992, FALSE),
-(14, 'One Hundred Years of Solitude', 14, 'Magic realism', 1967, TRUE),
-(15, 'Lolita', 15, 'Novel', 1955, FALSE)
+INSERT INTO Books (title, author_id, genre, publish_year, is_available) VALUES
+('A Tale of Two Cities', 1, 'Historical fiction', 1859, TRUE),
+('The Little Prince', 2, 'Fantasy', 1943, TRUE),
+('The Alchemist', 3, 'Fantasy', 1988, FALSE),
+('Harry Potter and the Philosopher''s Stone', 4, 'Fantasy', 1997, FALSE),
+('And Then There Were None', 5, 'Mystery', 1939, FALSE),
+('Dream of the Red Chamber', 6, 'Family saga', 1791, FALSE),
+('The Hobbit', 7, 'Fantasy', 1937, TRUE),
+('Alice''s Adventures in Wonderland', 8, 'Fantasy', 1865, TRUE),
+('The Lion, the Witch and the Wardrobe', 9, 'Fantasy', 1950, FALSE),
+('She: A History of Adventure', 10, 'Adventure', 1887, TRUE),
+('The Da Vinci Code', 11, 'Mystery thriller', 2003, FALSE),
+('The Catcher in the Rye', 12, 'Coming-of-age', 1951, TRUE),
+('The Bridges of Madison County', 13, 'Romance', 1992, FALSE),
+('One Hundred Years of Solitude', 14, 'Magic realism', 1967, TRUE),
+('Lolita', 15, 'Novel', 1955, FALSE)
 ;
 
 INSERT INTO BorrowRecords (book_id, member_id, borrow_date, return_date, status) VALUES

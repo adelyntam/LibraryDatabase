@@ -1,18 +1,16 @@
 package com.library.model;
 
-import java.time.Year;
-
 public class Book {
     private int bookId;
     private String title;
     private int authorId;  // FK to Author
     private String genre;
-    private Year publishYear;
+    private int publishYear;
     private boolean isAvailable;
 
     public Book() {}
 
-    public Book(int bookId, String title, int authorId, String genre, Year publishYear, boolean isAvailable) {
+    public Book(int bookId, String title, int authorId, String genre, int publishYear, boolean isAvailable) {
         this.bookId = bookId;
         this.title = title;
         this.authorId = authorId;
@@ -56,14 +54,11 @@ public class Book {
         this.genre = genre;
     }
 
-    public Year getPublishYear() {
+    public int getPublishYear() {
         return publishYear;
     }
 
-    public void setPublishYear(Year publishYear) {
-        if (publishYear == null) {
-            throw new IllegalArgumentException("Publish year cannot be null.");
-        }
+    public void setPublishYear(int publishYear) {
         this.publishYear = publishYear;
     }
 

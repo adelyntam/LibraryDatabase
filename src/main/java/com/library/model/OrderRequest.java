@@ -77,8 +77,8 @@ public class OrderRequest {
     }
 
     public void setStatus(String status) {
-        if (!Objects.equals(status, "pending") && !Objects.equals(status, "fulfilled")) {
-            throw new IllegalArgumentException("Status must be 'pending' or 'fulfilled'.");
+        if (!Objects.equals(status, "Pending") && !Objects.equals(status, "Fulfilled")) {
+            throw new IllegalArgumentException("Status must be 'Pending' or 'Fulfilled'.");
         }
         this.status = status;
     }

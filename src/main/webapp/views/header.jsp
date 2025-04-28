@@ -13,16 +13,22 @@
     <h1 class="text-center">Online Library</h1>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
-            <div class="collapse navbar-collapse">
+            <div>
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/books">View Books</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/borrow_return">Borrow/Return</a>
-                    </li>
-                </ul>
+                     <li class="nav-item">
+                         <a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="${pageContext.request.contextPath}/views/bookListView.jsp">View Books</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Mem.jsp">Request a Book</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Lib.jsp">Manage Requests</a>
+                     </li>
+                 </ul>
+
             </div>
         </div>
     </nav>

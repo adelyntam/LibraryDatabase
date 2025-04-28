@@ -14,7 +14,7 @@
                 <th>Genre</th>
                 <th>Publish Year</th>
                 <th>Status</th>
-                <th>Action</th>
+                <th>Borrow</th>
             </tr>
         </thread>
         <body>

@@ -27,7 +27,7 @@
 
     <!-- Default Page -->
     <welcome-file-list>
-        <welcome-file>views/bookList.jsp</welcome-file>
+        <welcome-file>views/bookListView.jsp</welcome-file>
     </welcome-file-list>
 
     <!-- JSP Configuration -->

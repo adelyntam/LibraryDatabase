@@ -82,6 +82,11 @@ public class LibService {
         }
     }
 
+    public int createOrderRequest(OrderRequest request) throws SQLException {
+        // Wrapper for the DAO method
+        return orderRequestsDao.createRequest(request);
+    }
+
     // Adds new book to library
     public void fulfillOrderRequest(int requestId) throws SQLException {
         Connection conn = null;

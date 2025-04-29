@@ -27,7 +27,7 @@ book_id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255) NOT NULL,
 author_id INT NOT NULL,
 genre VARCHAR(50),
-publish_year YEAR,
+publish_year INT NOT NULL,
 is_available BOOLEAN DEFAULT TRUE,
 CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES Authors(author_id),
 CONSTRAINT unique_title_author UNIQUE (title, author_id)

@@ -10,6 +10,8 @@ import com.library.model.*;
 import com.library.util.DBUtil;
 import java.sql.*;
 import java.time.Year;
+import java.util.List;
+import java.util.Map;
 
 public class LibService {
     private final AuthorsDAO authorsDao;
@@ -80,6 +82,11 @@ public class LibService {
         }
     }
 
+    public int createOrderRequest(OrderRequest request) throws SQLException {
+        // Wrapper for the DAO method
+        return orderRequestsDao.createRequest(request);
+    }
+
     // Adds new book to library
     public void fulfillOrderRequest(int requestId) throws SQLException {
         Connection conn = null;
@@ -112,7 +119,7 @@ public class LibService {
                 request.getBookTitle(),
                 authorId,
                 "General", // For now, default (maybe alter OrderRequest later)
-                Year.now(), // For now, default
+                Year.now().getValue(), // For now, default
                 true // Available by default
             );
 
@@ -159,5 +166,10 @@ public class LibService {
         } finally {
             DBUtil.close(conn);
         }
+    }
+
+    public List<Map<String, Object>> getAvailableBooksWithAuthors() throws SQLException {
+        // Another simple wrapper
+        return booksDao.getAvailableBooksWithAuthors();
     }
 }

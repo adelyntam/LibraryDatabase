@@ -95,4 +95,24 @@ public class BooksDAO {
         }
         return books;
     }
+
+    public List<Book> getAllBooks(Connection conn) throws SQLException {
+        List<Book> books = new ArrayList<>();
+        String sql = "SELECT * FROM Books";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                books.add(new Book(
+                        rs.getInt("book_id"),
+                        rs.getString("title"),
+                        rs.getInt("author_id"),
+                        rs.getString("genre"),
+                        rs.getInt("publish_year"),
+                        rs.getBoolean("is_available")
+                ));
+            }
+        }
+        return books;
+    }
+
 }

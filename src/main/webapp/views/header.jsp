@@ -16,9 +16,6 @@
             <div>
                 <ul class="navbar-nav me-auto">
                      <li class="nav-item">
-                         <a class="navbar-brand" href="${pageContext.request.contextPath}/">Home</a>
-                     </li>
-                     <li class="nav-item">
                          <a class="nav-link" href="${pageContext.request.contextPath}/views/bookListView.jsp">View Books</a>
                      </li>
                      <li class="nav-item">

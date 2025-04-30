@@ -6,7 +6,7 @@
 <div class="container mt-4">
     <h1>Manage Book Requests</h1>
     <table class="table table-striped">
-        <thread>
+        <thead>
             <tr>
                 <th>Request ID</th>
                 <th>Book Title</th>
@@ -15,8 +15,8 @@
                 <th>Current Status</th>
                 <th>Update Status</th>
             </tr>
-        </thread>
-        <body>
+        </thead>
+        <tbody>
             <c:forEach var="request" items="${requestList}">
                 <tr>
                     <td>${request.requestId}</td>

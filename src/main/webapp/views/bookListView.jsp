@@ -4,9 +4,9 @@
 <jsp:include page="header.jsp"/>
 
 <div class="container mt-4">
-    <h1>Available Books</h1>
+    <h1>All Books</h1>
     <table class="table table-striped">
-        <thread>
+        <thead>
             <tr>
                 <th>BookID</th>
                 <th>Title</th>
@@ -16,26 +16,24 @@
                 <th>Status</th>
                 <th>Borrow</th>
             </tr>
-        </thread>
-        <body>
+        </thead>
+        <tbody>
             <c:forEach var="book" items="${bookList}">
                 <tr>
-                    <td>${book.book_id}</td>
+                    <td>${book.bookId}</td>
                     <td>${book.title}</td>
-                    <td>${book.author}</td>
+                    <td>${book.authorId}</td>
                     <td>${book.genre}</td>
-                    <td>${book.publish_year}</td>
+                    <td>${book.publishYear}</td>
                     <td>
                         <c:choose>
-                            <c:when test="${book.is_available}">
-                            <!-- Borrow Form -->
-                            <form action="borrow" method="post" style="display: inline;">
-                                <input type="hidden" name="bookId" value="${book.bookId}" />
-                                <button type="submit" class="btn btn-success btn-sm">Borrow</button>
-                            </form>
+                            <c:when test="${book.available}">
+                                <a href="borrowBookView.jsp?bookId=${book.bookId}"
+                                   style="display:inline-block; width:30px; height:30px; background-color:limegreen; border-radius:3px; text-decoration:none;">
+                                </a>
                             </c:when>
                             <c:otherwise>
-                                <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
+                                <div style="width:30px; height:30px; background-color:crimson; border-radius:3px;"></div>
                             </c:otherwise>
                         </c:choose>
                     </td>
@@ -46,7 +44,7 @@
                     </td>
                 </tr>
             </c:forEach>
-        </body>
+        </tbody>
     </table>
 </div>
 

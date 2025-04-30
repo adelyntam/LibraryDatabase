@@ -29,7 +29,7 @@ public class BorrowServlet extends HttpServlet {
                 BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
                 borrowDAO.borrowBook(conn, bookId, memberId);
 
-                response.sendRedirect("bookListView.jsp");
+                response.sendRedirect("/views/bookListView.jsp");
 
             } finally {
                 DBUtil.close(conn);

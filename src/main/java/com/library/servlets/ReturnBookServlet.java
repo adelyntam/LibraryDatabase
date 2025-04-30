@@ -10,7 +10,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 
-@WebServlet("/returnBook")
+@WebServlet("/returnBookView")
 public class ReturnBookServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int recordId = Integer.parseInt(request.getParameter("recordId"));
@@ -28,7 +28,7 @@ public class ReturnBookServlet extends HttpServlet {
             BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
             borrowDAO.returnBook(conn, recordId);
 
-            response.sendRedirect("bookListView.jsp");
+            response.sendRedirect("/views/bookListView.jsp");
 
         } catch (Exception e) {
             e.printStackTrace();

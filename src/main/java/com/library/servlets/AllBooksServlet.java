@@ -22,7 +22,7 @@ public class AllBooksServlet extends HttpServlet {
             List<Book> books = booksDAO.getAllBooks(conn);
 
             request.setAttribute("bookList", books);
-            request.getRequestDispatcher("bookListView.jsp").forward(request, response); // ✅ correct JSP
+            request.getRequestDispatcher("/views/bookListView.jsp").forward(request, response); // ✅ correct JSP
 
         } catch (Exception e) {
             e.printStackTrace();

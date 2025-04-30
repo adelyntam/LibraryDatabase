@@ -63,4 +63,26 @@ public class BorrowRecordsDAO {
         }
         return records;
     }
+
+    public BorrowRecord getActiveBorrow(Connection conn, int bookId, int memberId) throws SQLException {
+        String sql = "SELECT * FROM BorrowRecords WHERE book_id = ? AND member_id = ? AND status = 'borrowed'";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, bookId);
+            stmt.setInt(2, memberId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new BorrowRecord(
+                            rs.getInt("record_id"),
+                            rs.getInt("book_id"),
+                            rs.getInt("member_id"),
+                            rs.getDate("borrow_date").toLocalDate(),
+                            rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
+                            rs.getString("status")
+                    );
+                }
+            }
+        }
+        return null;
+    }
+
 }

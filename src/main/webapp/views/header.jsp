@@ -19,10 +19,13 @@
                          <a class="nav-link" href="${pageContext.request.contextPath}/views/bookListView.jsp">View Books</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Mem.jsp">Request a Book</a>
+                         <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Mem.jsp">Request Book</a>
                      </li>
                      <li class="nav-item">
                          <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Lib.jsp">Manage Requests</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="${pageContext.request.contextPath}/views/returnBookView.jsp">Return Book</a>
                      </li>
                  </ul>
 

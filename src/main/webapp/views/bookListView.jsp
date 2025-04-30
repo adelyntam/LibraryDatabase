@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<jsp:include page="header.jsp"/>
+<jsp:include page="/views/header.jsp"/>
 
 <div class="container mt-4">
     <h1>All Books</h1>
@@ -22,7 +22,7 @@
                 <tr>
                     <td>${book.bookId}</td>
                     <td>${book.title}</td>
-                    <td>${book.authorId}</td>
+                    <td>${book.authorName}</td>
                     <td>${book.genre}</td>
                     <td>${book.publishYear}</td>
                     <td>
@@ -44,11 +44,17 @@
                     </td>
                 </tr>
             </c:forEach>
+
+            <c:if test="${empty bookList}">
+                <tr>
+                    <td colspan="7" class="text-center">No books found!</td>
+                </tr>
+            </c:if>
         </tbody>
     </table>
 </div>
 
 
-<jsp:include page="footer.jsp"/>
+<jsp:include page="/views/footer.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

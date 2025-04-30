@@ -17,7 +17,7 @@
             <input type="text" class="form-control" id="authorName" name="authorName" required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Submit Request</button>
+        <button type="submit" class="btn btn-success">Submit Request</button>
     </form>
 </div>
 

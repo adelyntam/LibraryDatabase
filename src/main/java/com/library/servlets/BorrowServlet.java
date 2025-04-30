@@ -29,8 +29,7 @@ public class BorrowServlet extends HttpServlet {
                 BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
                 borrowDAO.borrowBook(conn, bookId, memberId);
 
-                // 3. Redirect to confirmation page
-                response.sendRedirect("success.jsp");
+                response.sendRedirect("/views/bookListView.jsp");
 
             } finally {
                 DBUtil.close(conn);

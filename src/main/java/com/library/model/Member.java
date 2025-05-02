@@ -18,6 +18,12 @@ public class Member {
         this.membershipDate = membershipDate;
     }
 
+    public Member(String name, String email, LocalDate membershipDate) {
+        this.name = name;
+        this.email = email;
+        this.membershipDate = membershipDate;
+    }
+
     public int getMemberId() {
         return memberId;
     }

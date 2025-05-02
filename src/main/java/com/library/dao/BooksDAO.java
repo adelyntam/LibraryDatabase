@@ -115,4 +115,40 @@ public class BooksDAO {
         return books;
     }
 
+    // Search books by title (partial match)
+    public List<Book> searchByTitle(Connection conn, String titlePattern) throws SQLException {
+        List<Book> books = new ArrayList<>();
+        String sql = "SELECT * FROM Books WHERE title LIKE ? ORDER BY book_id";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + titlePattern + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    books.add(new Book(
+                            rs.getInt("book_id"),
+                            rs.getString("title"),
+                            rs.getInt("author_id"),
+                            rs.getString("genre"),
+                            rs.getInt("publish_year"),
+                            rs.getBoolean("is_available")
+                    ));
+                }
+            }
+        }
+        return books;
+    }
+
+    // Update all book fields
+    public void updateBook(Connection conn, Book book) throws SQLException {
+        String sql = "UPDATE Books SET title = ?, author_id = ?, genre = ?, publish_year = ?, is_available = ? " +
+                "WHERE book_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, book.getTitle());
+            stmt.setInt(2, book.getAuthorId());
+            stmt.setString(3, book.getGenre());
+            stmt.setInt(4, book.getPublishYear());
+            stmt.setBoolean(5, book.isAvailable());
+            stmt.setInt(6, book.getBookId());
+            stmt.executeUpdate();
+        }
+    }
 }

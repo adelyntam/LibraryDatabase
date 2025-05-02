@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="header.jsp"/>
+<jsp:include page="headerLib.jsp"/>
 
 <div class="container mt-4">
     <h1>Manage Book Requests</h1>

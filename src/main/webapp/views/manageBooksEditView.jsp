@@ -88,7 +88,7 @@
       </c:choose>
     </button>
     <a
-      href="${pageContext.request.contextPath}/views/manageBooks.jsp"
+      href="${pageContext.request.contextPath}/views/manageBooksView.jsp"
       class="btn btn-secondary ms-2"
     >Cancel</a>
   </form>

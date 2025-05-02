@@ -74,7 +74,7 @@
       </c:choose>
     </button>
     <a
-      href="${pageContext.request.contextPath}/views/manageMember"
+      href="${pageContext.request.contextPath}/views/manageMemberView"
       class="btn btn-secondary ms-2"
     >Cancel</a>
 

@@ -10,7 +10,7 @@
   <h1>Manage Members</h1>
   <form
     class="row g-3 align-items-center mb-3"
-    action="${pageContext.request.contextPath}/view/manageMember"
+    action="${pageContext.request.contextPath}/views/manageMember"
     method="get"
   >
     <div class="col-auto">
@@ -29,7 +29,7 @@
     </div>
     <div class="col-auto ms-auto">
       <a
-        href="${pageContext.request.contextPath}/view/manageMemberEdit.jsp"
+        href="${pageContext.request.contextPath}/views/manageMemberEdit.jsp"
         class="btn btn-primary"
       >Add New</a>
     </div>

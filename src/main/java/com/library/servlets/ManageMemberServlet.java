@@ -29,7 +29,7 @@ public class ManageMemberServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try (Connection conn = DBUtil.getConnection()) {
-            String searchTerm = request.getParameter("search");
+            String searchTerm = request.getParameter("searchTerm");
             
             List<Member> members;
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {

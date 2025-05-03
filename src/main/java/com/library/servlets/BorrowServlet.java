@@ -4,15 +4,20 @@ import com.library.dao.BooksDAO;
 import com.library.dao.BorrowRecordsDAO;
 import com.library.util.DBUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.sql.Connection;
 
 @WebServlet("/borrowBookView")
 public class BorrowServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
         try {
             int bookId = Integer.parseInt(request.getParameter("bookId"));
             int memberId = Integer.parseInt(request.getParameter("memberId"));
@@ -38,7 +43,8 @@ public class BorrowServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Borrow failed: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("error.jsp")
+                    .forward(request, response);
         }
     }
 }

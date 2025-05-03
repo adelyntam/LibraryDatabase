@@ -43,7 +43,9 @@
     <p><strong>Date Borrowed:</strong> <%= record.getBorrowDate() %></p>
     <p><strong>Status:</strong> <%= record.getStatus() %></p>
 
-    <form action="returnBook" method="post">
+    <form method="post"
+              action="${pageContext.request.contextPath}/returnBook"
+              class="mt-4">
         <input type="hidden" name="recordId" value="<%= record.getRecordId() %>">
         <input type="hidden" name="bookId" value="<%= bookId %>">
         <button type="submit" class="btn btn-success">Confirm Return</button>

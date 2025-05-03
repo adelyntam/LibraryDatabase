@@ -25,7 +25,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="${pageContext.request.contextPath}/views/requestBookView_Mem.jsp">
+                       href="${pageContext.request.contextPath}/views/requestBookView.jsp">
                       Request Book
                     </a>
                 </li>

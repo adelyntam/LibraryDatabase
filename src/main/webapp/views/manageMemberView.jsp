@@ -56,12 +56,7 @@
           </td>
           <td>${mem.name}</td>
           <td>${mem.email}</td>
-          <td>
-            <fmt:formatDate
-              value="${mem.membershipDate}"
-              pattern="yyyy-MM-dd"
-            />
-          </td>
+          <td>${mem.membershipDate}</td>
         </tr>
       </c:forEach>
 

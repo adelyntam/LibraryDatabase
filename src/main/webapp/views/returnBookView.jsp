@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*, java.time.LocalDate" %>
 <%@ page import="com.library.dao.BorrowRecordsDAO, com.library.dao.BooksDAO, com.library.model.BorrowRecord, com.library.model.Book, com.library.util.DBUtil" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp" />
 
 <div class="container mt-4">
     <h1>Return Book</h1>
 
-    <form method="get" action="returnBookView.jsp">
+    <form method="get" action="<c:url value='/views/returnBookView.jsp'/>">
         <div class="mb-3">
             <label for="memberId" class="form-label">Member ID</label>
             <input type="text" name="memberId" id="memberId" class="form-control" required>
@@ -43,9 +44,7 @@
     <p><strong>Date Borrowed:</strong> <%= record.getBorrowDate() %></p>
     <p><strong>Status:</strong> <%= record.getStatus() %></p>
 
-    <form method="post"
-              action="${pageContext.request.contextPath}/returnBook"
-              class="mt-4">
+    <form method="post" action="<c:url value='/returnBook'/>" class="mt-4">
         <input type="hidden" name="recordId" value="<%= record.getRecordId() %>">
         <input type="hidden" name="bookId" value="<%= bookId %>">
         <button type="submit" class="btn btn-success">Confirm Return</button>

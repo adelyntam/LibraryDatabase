@@ -51,7 +51,7 @@
                     <td>
                         <c:choose>
                             <c:when test="${book.available}">
-                                <a href="${pageContext.request.contextPath}/borrowBookView?bookId=${book.bookId}"
+                                <a href="<c:url value='/borrowBookView?bookId=${book.bookId}'/>"
                                    style="display:inline-block;width:30px;height:30px;background-color:limegreen;border-radius:3px;"></a>
                             </c:when>
                             <c:otherwise>

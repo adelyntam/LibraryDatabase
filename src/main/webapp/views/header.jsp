@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,34 +19,19 @@
         <div class="container-fluid">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="${pageContext.request.contextPath}/views/bookListView.jsp">
-                      View Books
-                    </a>
+                    <a class="nav-link" href="<c:url value='/bookListView'/>">View Books</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="${pageContext.request.contextPath}/views/requestBookView.jsp">
-                      Request Book
-                    </a>
+                    <a class="nav-link" href="<c:url value='/requestBook'/>">Request Book</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                       href="${pageContext.request.contextPath}/views/returnBookView.jsp">
-                      Return Book
-                    </a>
+                    <a class="nav-link" href="<c:url value='/returnBook'/>">Return Book</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                        href="${pageContext.request.contextPath}/views/historyView.jsp">
-                       History
-                    </a>
+                    <a class="nav-link" href="<c:url value='/historyView'/>">History</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"
-                        href="${pageContext.request.contextPath}/manageLogin">
-                       Manage
-                    </a>
+                    <a class="nav-link" href="<c:url value='/manageLogin'/>">Manage</a>
                 </li>
             </ul>
         </div>

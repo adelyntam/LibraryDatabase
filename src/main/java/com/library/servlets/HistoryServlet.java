@@ -1,5 +1,9 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.util.List;
+
 import com.library.dao.BorrowRecordsDAO;
 import com.library.model.BorrowRecord;
 import com.library.util.DBUtil;
@@ -9,10 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.util.List;
 
 @WebServlet("/historyView")
 public class HistoryServlet extends HttpServlet {
@@ -47,14 +47,14 @@ public class HistoryServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             // invalid memberId
             request.setAttribute("error", "Invalid MemberID");
-            request.getRequestDispatcher("error.jsp")
+            request.getRequestDispatcher("/views/error.jsp")
                     .forward(request, response);
 
         } catch (Exception e) {
             // SQL or other errors
             e.printStackTrace();
             request.setAttribute("error", "Could not load history: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp")
+            request.getRequestDispatcher("/views/error.jsp")
                     .forward(request, response);
         }
     }

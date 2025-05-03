@@ -51,9 +51,7 @@
         <tr>
           <td>
             <a
-              href="<c:url value='/manageMemberEdit?memberId=${mem.memberId}'/>"
-              class="btn btn-primary btn-sm"
-            >${mem.memberId}</a>
+              href="<c:url value='/manageMemberEdit?memberId=${mem.memberId}'/>">${mem.memberId}</a>
           </td>
           <td>${mem.name}</td>
           <td>${mem.email}</td>

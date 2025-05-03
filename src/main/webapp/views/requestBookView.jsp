@@ -7,14 +7,19 @@
     <form method="post"
              action="<c:url value='/requestBook'/>"
              class="mt-4">
+         <div class="mb-3">
+            <label for="member_id" class="form-label">Member ID</label>
+            <input type="text" class="form-control" id="member_id" name="member_id" required>
+        </div>
+    
         <div class="mb-3">
-            <label for="bookTitle" class="form-label">Book Title</label>
-            <input type="text" class="form-control" id="bookTitle" name="bookTitle" required>
+            <label for="book_title" class="form-label">Book Title</label>
+            <input type="text" class="form-control" id="book_title" name="book_title" required>
         </div>
 
         <div class="mb-3">
-            <label for="authorName" class="form-label">Author Name</label>
-            <input type="text" class="form-control" id="authorName" name="authorName" required>
+            <label for="author_name" class="form-label">Author Name</label>
+            <input type="text" class="form-control" id="author_name" name="author_name" required>
         </div>
 
         <button type="submit" class="btn btn-success">Submit Request</button>

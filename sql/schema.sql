@@ -40,9 +40,10 @@ member_id INT NOT NULL,
 borrow_date DATE NOT NULL,
 return_date DATE,
 status ENUM('borrowed', 'returned') NOT NULL DEFAULT 'borrowed',
+active TINYINT AS (CASE WHEN status = 'borrowed' THEN 1 ELSE NULL END),
+UNIQUE KEY unique_active_borrow (book_id, member_id, active),
 CONSTRAINT fk_borrowed_book FOREIGN KEY (book_id) REFERENCES Books(book_id),
 CONSTRAINT fk_borrowing_member FOREIGN KEY (member_id) REFERENCES Members(member_id),
-CONSTRAINT unique_active_borrow UNIQUE (book_id, member_id, status),
 CONSTRAINT check_return_date CHECK (return_date IS NULL OR return_date >= borrow_date)
 );
 

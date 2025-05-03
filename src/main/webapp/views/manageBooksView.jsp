@@ -22,7 +22,7 @@
         id="searchTerm"
         name="searchTerm"
         class="form-control"
-        placeholder="BookID or Title"
+        placeholder="Book Title"
         value="${fn:escapeXml(param.searchTerm)}"
       />
     </div>

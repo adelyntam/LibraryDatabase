@@ -40,7 +40,8 @@ public class ReturnBookServlet extends HttpServlet {
             BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
             borrowDAO.returnBook(conn, recordId);
 
-            response.sendRedirect("/bookListView");
+            // Redirect with context path
+            response.sendRedirect(request.getContextPath() + "/bookListView");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,28 +17,20 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageAuthors")
 public class ManageAuthorsServlet extends HttpServlet {
-    private AuthorsDAO authorsDAO;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        authorsDAO = new AuthorsDAO();
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Author> authorList;
-
         try (Connection conn = DBUtil.getConnection()) {
-            String searchName = request.getParameter("searchName");
-
-            if (searchName != null && !searchName.trim().isEmpty()) {
-                authorList = authorsDAO.searchByName(conn, searchName.trim());
+            AuthorsDAO authorsDAO = new AuthorsDAO();
+            // Use "searchTerm" from the JSP
+            String searchTerm = request.getParameter("searchTerm");
+            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                authorList = authorsDAO.searchByName(conn, searchTerm.trim());
             } else {
                 authorList = authorsDAO.getAllAuthors(conn);
             }
-
             request.setAttribute("authorList", authorList);
             request.getRequestDispatcher("/views/manageAuthorsView.jsp")
                    .forward(request, response);

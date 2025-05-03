@@ -20,7 +20,7 @@
         id="searchTerm"
         name="searchTerm"
         class="form-control"
-        placeholder="MemberID or Name"
+        placeholder="Name"
         value="${fn:escapeXml(param.searchTerm)}"
       />
     </div>

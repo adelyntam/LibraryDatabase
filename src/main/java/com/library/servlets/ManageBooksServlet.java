@@ -24,10 +24,10 @@ public class ManageBooksServlet extends HttpServlet {
 
         try (Connection conn = DBUtil.getConnection()) {
             BooksDAO booksDAO = new BooksDAO();
-            String searchTitle = request.getParameter("searchTitle");
+            String searchTerm = request.getParameter("searchTerm");
 
-            if (searchTitle != null && !searchTitle.trim().isEmpty()) {
-                bookList = booksDAO.searchByTitle(conn, searchTitle.trim());
+            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                bookList = booksDAO.searchByTitle(conn, searchTerm.trim());
             } else {
                 bookList = booksDAO.getAllBooks(conn);
             }

@@ -72,20 +72,21 @@ public class BorrowRecordsDAO {
         return records;
     }
 
+    // Get active borrow for a book and member, choosing the highest record ID if multiples exist
     public BorrowRecord getActiveBorrow(Connection conn, int bookId, int memberId) throws SQLException {
-        String sql = "SELECT * FROM BorrowRecords WHERE book_id = ? AND member_id = ? AND status = 'borrowed'";
+        String sql = "SELECT * FROM BorrowRecords WHERE book_id = ? AND member_id = ? AND status = 'borrowed' ORDER BY record_id DESC LIMIT 1";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, bookId);
             stmt.setInt(2, memberId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return new BorrowRecord(
-                            rs.getInt("record_id"),
-                            rs.getInt("book_id"),
-                            rs.getInt("member_id"),
-                            rs.getDate("borrow_date").toLocalDate(),
-                            rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
-                            rs.getString("status")
+                        rs.getInt("record_id"),
+                        rs.getInt("book_id"),
+                        rs.getInt("member_id"),
+                        rs.getDate("borrow_date").toLocalDate(),
+                        rs.getDate("return_date") != null ? rs.getDate("return_date").toLocalDate() : null,
+                        rs.getString("status")
                     );
                 }
             }

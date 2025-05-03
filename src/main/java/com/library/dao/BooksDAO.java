@@ -77,7 +77,7 @@ public class BooksDAO {
 
     // Get available books with author info
     public List<Map<String, Object>> getAvailableBooksWithAuthors(Connection conn) throws SQLException {
-        String sql = "SELECT b.*, a.name AS author_name FROM books b " + "JOIN authors a ON b.author_id = a.author_id " + "WHERE b.is_available = true";
+        String sql = "SELECT b.*, a.name AS author_name FROM Books b " + "JOIN authors a ON b.author_id = a.author_id " + "WHERE b.is_available = true";
 
         List<Map<String, Object>> books = new ArrayList<>();
         try (Statement stmt = conn.createStatement();

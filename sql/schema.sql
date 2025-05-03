@@ -18,7 +18,7 @@ CREATE TABLE Members (
 member_id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
-membership_date DATE NOT NULL,
+membership_date DATE NOT NULL DEFAULT CURRENT_DATE,
 CONSTRAINT unique_email UNIQUE (email)
 );
 
@@ -52,7 +52,7 @@ request_id INT AUTO_INCREMENT PRIMARY KEY,
 member_id INT NOT NULL,
 book_title VARCHAR(255) NOT NULL,
 author_name VARCHAR(100) NOT NULL,
-request_date DATE NOT NULL,
+request_date DATE NOT NULL DEFAULT (CURRENT_DATE),
 status ENUM('pending', 'fulfilled') NOT NULL DEFAULT 'pending',
 CONSTRAINT fk_requesting_member FOREIGN KEY (member_id) REFERENCES Members(member_id)
 );

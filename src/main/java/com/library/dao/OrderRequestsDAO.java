@@ -15,12 +15,11 @@ import com.library.model.OrderRequest;
 public class OrderRequestsDAO {
     // Create new request, return id
     public int createRequest(Connection conn, OrderRequest request) throws SQLException {
-        String sql = "INSERT INTO OrderRequests (member_id, book_title, author_name, request_date, status) " + "VALUES (?, ?, ?, ?, 'pending')";
+        String sql = "INSERT INTO OrderRequests (member_id, book_title, author_name, status) " + "VALUES ( ?, ?, ?, 'pending')";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, request.getMemberId());
             stmt.setString(2, request.getBookTitle());
             stmt.setString(3, request.getAuthorName());
-            stmt.setDate(4, Date.valueOf(LocalDate.now()));
             stmt.executeUpdate();
 
             try (ResultSet rs = stmt.getGeneratedKeys()) {

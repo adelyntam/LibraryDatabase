@@ -35,7 +35,7 @@ public class RequestBookServlet extends HttpServlet {
 
         try (Connection conn = DBUtil.getConnection()) {
             // Insert the new book request into the database
-            String sql = "INSERT INTO OrderRequests (member_id,book_title, author_name) VALUES (?,?, ?)";
+            String sql = "INSERT INTO OrderRequests (member_id,book_title, author_name, request_date) VALUES (?,?, ?,?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, Integer.parseInt(member_id));
                 stmt.setString(2, book_title);

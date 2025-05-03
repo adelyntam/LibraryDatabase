@@ -1,10 +1,16 @@
 package com.library.dao;
 
-import com.library.model.OrderRequest;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.library.model.OrderRequest;
 
 public class OrderRequestsDAO {
     // Create new request, return id
@@ -64,6 +70,17 @@ public class OrderRequestsDAO {
         String sql = "SELECT * FROM OrderRequests WHERE status = 'pending'";
         try (PreparedStatement stmt = conn.prepareStatement(sql);
         ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                requests.add(new OrderRequest(rs.getInt("request_id"), rs.getInt("member_id"), rs.getString("book_title"), rs.getString("author_name"), rs.getDate("request_date").toLocalDate(), rs.getString("status")));
+            }
+        }
+        return requests;
+    }
+    public List<OrderRequest> getAllRequests(Connection conn) throws SQLException {
+        List<OrderRequest> requests = new ArrayList<>();
+        String sql = "SELECT * FROM OrderRequests";
+        try (PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 requests.add(new OrderRequest(rs.getInt("request_id"), rs.getInt("member_id"), rs.getString("book_title"), rs.getString("author_name"), rs.getDate("request_date").toLocalDate(), rs.getString("status")));
             }

@@ -1,17 +1,19 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 import com.library.dao.MembersDAO;
 import com.library.model.Member;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.time.LocalDate;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageMemberEdit")
 public class ManageMemberEditServlet extends HttpServlet {
@@ -76,7 +78,7 @@ public class ManageMemberEditServlet extends HttpServlet {
             }
 
             // back to list
-            response.sendRedirect(request.getContextPath() + "/views/manageMemberView.jsp");
+            response.sendRedirect(request.getContextPath() + "/manageMemberView");
 
         } catch (SQLException e) {
             throw new ServletException("Unable to save member", e);

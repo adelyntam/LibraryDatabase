@@ -1,16 +1,18 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import com.library.dao.AuthorsDAO;
 import com.library.model.Author;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageAuthorsEdit")
 public class ManageAuthorsEditServlet extends HttpServlet {
@@ -65,6 +67,6 @@ public class ManageAuthorsEditServlet extends HttpServlet {
             throw new ServletException("Unable to save author", e);
         }
 
-        response.sendRedirect(request.getContextPath() + "/views/manageAuthorsView.jsp");
+        response.sendRedirect(request.getContextPath() + "/manageAuthors");
     }
 }

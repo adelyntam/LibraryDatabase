@@ -1,16 +1,18 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import com.library.dao.BooksDAO;
 import com.library.model.Book;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageBooksEdit")
 public class ManageBooksEditServlet extends HttpServlet {
@@ -65,7 +67,7 @@ public class ManageBooksEditServlet extends HttpServlet {
                         new Book(0,title, authorId, genre, publishYear, true));
             }
 
-            response.sendRedirect(request.getContextPath() + "/views/manageBooksView.jsp");
+            response.sendRedirect(request.getContextPath() + "/manageBooks");
         } catch (SQLException e) {
             throw new ServletException("Unable to save book", e);
         }

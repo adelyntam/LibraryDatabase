@@ -1,5 +1,10 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
@@ -7,11 +12,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 @WebServlet("/requestBook")
 public class RequestBookServlet extends HttpServlet {
@@ -40,7 +40,7 @@ public class RequestBookServlet extends HttpServlet {
             }
 
             // Redirect back to the book list (or you could redirect to a confirmation page)
-            response.sendRedirect(request.getContextPath() + "/views/bookListView");
+            response.sendRedirect(request.getContextPath() + "/requestBook");
         } catch (SQLException e) {
             throw new ServletException("Error saving book request", e);
         }

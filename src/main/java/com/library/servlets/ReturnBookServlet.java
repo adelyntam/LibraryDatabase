@@ -1,5 +1,8 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+
 import com.library.dao.BooksDAO;
 import com.library.dao.BorrowRecordsDAO;
 import com.library.util.DBUtil;
@@ -10,11 +13,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-import java.io.IOException;
-import java.sql.Connection;
-
 @WebServlet("/returnBook")
 public class ReturnBookServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Forward GET requests to the returnBookView.jsp page.
+        request.getRequestDispatcher("/views/returnBookView.jsp").forward(request, response);
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -33,7 +40,7 @@ public class ReturnBookServlet extends HttpServlet {
             BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
             borrowDAO.returnBook(conn, recordId);
 
-            response.sendRedirect("/views/bookListView.jsp");
+            response.sendRedirect("/bookListView");
 
         } catch (Exception e) {
             e.printStackTrace();

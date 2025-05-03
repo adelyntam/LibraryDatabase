@@ -32,7 +32,7 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th>Name</th>
+        <th>Title</th>
         <th>Author</th>
         <th>Genre</th>
         <th>Date Borrowed</th>

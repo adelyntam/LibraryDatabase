@@ -37,7 +37,6 @@
                 <th>Genre</th>
                 <th>Publish Year</th>
                 <th>Status</th>
-                <th>Borrow</th>
             </tr>
         </thead>
         <tbody>
@@ -51,7 +50,7 @@
                     <td>
                         <c:choose>
                             <c:when test="${book.available}">
-                                <a href="<c:url value='/borrowBookView?bookId=${book.bookId}'/>"
+                                <a href="${pageContext.request.contextPath}/borrowBookView?bookId=${book.bookId}"
                                    style="display:inline-block;width:30px;height:30px;background-color:limegreen;border-radius:3px;"></a>
                             </c:when>
                             <c:otherwise>

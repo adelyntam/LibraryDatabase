@@ -10,7 +10,7 @@
   <h1>Manage Members</h1>
   <form
     class="row g-3 align-items-center mb-3"
-    action="${pageContext.request.contextPath}/views/manageMember"
+    action="<c:url value='/manageMember'/>"
     method="get"
   >
     <div class="col-auto">
@@ -51,7 +51,8 @@
         <tr>
           <td>
             <a
-              href="${pageContext.request.contextPath}/views/manageMemberEdit.jsp?memberId=${mem.memberId}"
+              href="<c:url value='/manageMemberEdit?memberId=${mem.memberId}'/>"
+              class="btn btn-primary btn-sm"
             >${mem.memberId}</a>
           </td>
           <td>${mem.name}</td>

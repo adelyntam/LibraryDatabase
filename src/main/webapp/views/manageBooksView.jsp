@@ -11,8 +11,8 @@
 
   <!-- Search + Add New -->
   <form
-    class="row g-3 align-items-center mb-3"
-    action="${pageContext.request.contextPath}/manageBooks"
+    class="row g-3 mb-4"
+    action="<c:url value='/manageBooks'/>"
     method="get"
   >
     <div class="col-auto">
@@ -58,7 +58,7 @@
             >${book.bookId}</a>
           </td>
           <td>${book.title}</td>
-          <td>${book.authorName}</td>
+          <td>${book.authorId}</td>
           <td>${book.genre}</td>
           <td>${book.publishYear}</td>
           <td>

@@ -11,8 +11,8 @@
 
   <!-- Search + Add New -->
   <form
-    class="row g-3 align-items-center mb-3"
-    action="${pageContext.request.contextPath}/manageAuthors"
+    class="row g-3 mb-4"
+    action="<c:url value='/manageAuthors'/>"
     method="get"
   >
     <div class="col-auto">

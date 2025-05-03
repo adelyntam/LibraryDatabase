@@ -1,18 +1,19 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 import com.library.dao.AuthorsDAO;
 import com.library.model.Author;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageAuthors")
 public class ManageAuthorsServlet extends HttpServlet {
@@ -27,34 +28,23 @@ public class ManageAuthorsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String term = request.getParameter("searchTerm");
-        List<Author> authorList = Collections.emptyList();
+        List<Author> authorList;
 
         try (Connection conn = DBUtil.getConnection()) {
-            if (term != null && !term.trim().isEmpty()) {
-                String t = term.trim();
-                try {
-                    // if it’s a number, look up by ID
-                    int id = Integer.parseInt(t);
-                    Author a = authorsDAO.getAuthorById(conn, id);
-                    if (a != null) {
-                        authorList = List.of(a);
-                    }
-                } catch (NumberFormatException e) {
-                    // otherwise search by name
-                    authorList = authorsDAO.searchByName(conn, t);
-                }
+            String searchName = request.getParameter("searchName");
+
+            if (searchName != null && !searchName.trim().isEmpty()) {
+                authorList = authorsDAO.searchByName(conn, searchName.trim());
             } else {
-                // no term → list all
                 authorList = authorsDAO.getAllAuthors(conn);
             }
-        } catch (SQLException e) {
-            throw new ServletException("Error loading authors", e);
-        }
 
-        request.setAttribute("authorList", authorList);
-        request.getRequestDispatcher("/views/manageAuthorsView.jsp")
-               .forward(request, response);
+            request.setAttribute("authorList", authorList);
+            request.getRequestDispatcher("/views/manageAuthorsView.jsp")
+                   .forward(request, response);
+        } catch (SQLException e) {
+            throw new ServletException("Database error", e);
+        }
     }
 
     @Override

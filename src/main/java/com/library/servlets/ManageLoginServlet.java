@@ -1,9 +1,12 @@
 package com.library.servlets;
 
+import java.io.IOException;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import java.io.IOException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageLogin")
 public class ManageLoginServlet extends HttpServlet {
@@ -23,7 +26,7 @@ public class ManageLoginServlet extends HttpServlet {
         String pw = req.getParameter("password");
         if (ADMIN_PASSWORD.equals(pw)) {
             req.getSession().setAttribute("isAdmin", true);
-            resp.sendRedirect(req.getContextPath() + "/views/manageMemberView.jsp");
+            resp.sendRedirect(req.getContextPath() + "/manageMember");
         } else {
             req.setAttribute("error", "Invalid password, please try again.");
             req.getRequestDispatcher("/views/manageLogin.jsp")

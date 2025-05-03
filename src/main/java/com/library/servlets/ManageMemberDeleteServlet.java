@@ -24,6 +24,21 @@ public class ManageMemberDeleteServlet extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String idParam = request.getParameter("memberId");
+        if (idParam != null && !idParam.isEmpty()) {
+            try (Connection conn = DBUtil.getConnection()) {
+                int memberId = Integer.parseInt(idParam);
+                membersDAO.deleteMember(conn, memberId);
+            } catch (SQLException | NumberFormatException e) {
+                throw new ServletException("Unable to delete member", e);
+            }
+        }
+        response.sendRedirect(request.getContextPath() + "/manageMember");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String idParam = request.getParameter("memberId");

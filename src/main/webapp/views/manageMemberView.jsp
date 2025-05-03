@@ -29,7 +29,7 @@
     </div>
     <div class="col-auto ms-auto">
       <a
-        href="${pageContext.request.contextPath}/views/manageMemberEdit.jsp"
+      href="<c:url value='/manageMemberEdit?memberId=${0}'/>"
         class="btn btn-primary"
       >Add New</a>
     </div>

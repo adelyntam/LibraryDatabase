@@ -31,7 +31,7 @@ public class ManageMemberEditServlet extends HttpServlet {
         String idParam = request.getParameter("memberId");
         Member member = new Member();
         // if editing, load from DB
-        if (idParam != null && !idParam.isEmpty()) {
+        if (idParam != null && !idParam.isEmpty() && !idParam.equals("0")) {
             try (Connection conn = DBUtil.getConnection()) {
                 int memberId = Integer.parseInt(idParam);
                 Member m = membersDAO.getMemberById(conn, memberId);
@@ -66,7 +66,7 @@ public class ManageMemberEditServlet extends HttpServlet {
         }
 
         try (Connection conn = DBUtil.getConnection()) {
-            if (idParam != null && !idParam.isEmpty()) {
+            if (idParam != null && !idParam.isEmpty() && !idParam.equals("0")) {
                 // EDIT existing member
                 int memberId = Integer.parseInt(idParam);
                 membersDAO.updateMember(conn,
@@ -78,7 +78,7 @@ public class ManageMemberEditServlet extends HttpServlet {
             }
 
             // back to list
-            response.sendRedirect(request.getContextPath() + "/manageMemberView");
+            response.sendRedirect(request.getContextPath() + "/manageMember");
 
         } catch (SQLException e) {
             throw new ServletException("Unable to save member", e);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.library.dao.OrderRequestsDAO;
 import com.library.model.OrderRequest;
+import com.library.service.LibService;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
@@ -41,26 +42,26 @@ public class ManageRequestsServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idParam    = request.getParameter("requestId");
-        String newStatus  = request.getParameter("newStatus");
-
-        if (idParam == null || newStatus == null) {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing parameters");
+        String requestIdStr = request.getParameter("requestId");
+        String newStatus = request.getParameter("newStatus");
+        if(requestIdStr == null || requestIdStr.isEmpty()){
+            response.sendRedirect(request.getContextPath() + "/manageRequestBook");
             return;
         }
+        int requestId = Integer.parseInt(requestIdStr);
 
         try {
-            int requestId = Integer.parseInt(idParam);
-            try (Connection conn = DBUtil.getConnection()) {
-                requestsDAO.fulfillRequest(conn, requestId);
+            LibService libService = new LibService();
+            if ("Fulfilled".equalsIgnoreCase(newStatus)) {
+                // Fulfilling the order will add the new book as available to the Books table
+                libService.fulfillOrderRequest(requestId);
+            } else {
+                // For other statuses, update the request status (assumes updateOrderRequestStatus exists)
+                libService.updateOrderRequestStatus(requestId, newStatus);
             }
-        } catch (NumberFormatException e) {
-            throw new ServletException("Invalid requestId: " + idParam, e);
+            response.sendRedirect(request.getContextPath() + "/manageRequestBook");
         } catch (SQLException e) {
-            throw new ServletException("Unable to update request status", e);
+            throw new ServletException("Error updating request", e);
         }
-
-        // After updating, go back to the manage‐requests list
-        response.sendRedirect(request.getContextPath() + "/manageRequestBook");
     }
 }

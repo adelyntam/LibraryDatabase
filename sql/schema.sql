@@ -18,7 +18,7 @@ CREATE TABLE Members (
 member_id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
-membership_date DATE NOT NULL DEFAULT CURRENT_DATE,
+membership_date DATE NOT NULL DEFAULT (CURRENT_DATE),
 CONSTRAINT unique_email UNIQUE (email)
 );
 
@@ -26,8 +26,8 @@ CREATE TABLE Books (
 book_id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255) NOT NULL,
 author_id INT NOT NULL,
-genre VARCHAR(50),
-publish_year INT NOT NULL,
+genre VARCHAR(50) DEFAULT("General"),
+publish_year INT NOT NULL DEFAULT (YEAR(CURRENT_DATE)),
 is_available BOOLEAN DEFAULT TRUE,
 CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES Authors(author_id),
 CONSTRAINT unique_title_author UNIQUE (title, author_id)

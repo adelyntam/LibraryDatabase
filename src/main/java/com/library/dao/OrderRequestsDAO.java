@@ -1,15 +1,14 @@
 package com.library.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.library.model.Author;
 import com.library.model.OrderRequest;
 
 public class OrderRequestsDAO {
@@ -31,12 +30,51 @@ public class OrderRequestsDAO {
         }
     }
 
-    // Fulfill request (mark as fulfilled)
+    // Fulfill request (mark as fulfilled) and insert book into Books table
     public void fulfillRequest(Connection conn, int requestId) throws SQLException {
-        String sql = "UPDATE OrderRequests SET status = 'fulfilled' WHERE request_id = ?";
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, requestId);
-            stmt.executeUpdate();
+        // Retrieve the order request details
+        OrderRequest request = getRequestById(conn, requestId);
+        if (request == null) {
+            throw new SQLException("Order request not found with ID: " + requestId);
+        }
+        // Mark the order as fulfilled
+        String sqlUpdate = "UPDATE OrderRequests SET status = 'fulfilled' WHERE request_id = ?";
+        try (PreparedStatement stmtUpdate = conn.prepareStatement(sqlUpdate)) {
+            stmtUpdate.setInt(1, requestId);
+            stmtUpdate.executeUpdate();
+        }
+        
+        // Use AuthorsDAO to check if an author with the same name exists
+        AuthorsDAO authorsDao = new AuthorsDAO();
+        Integer authorId = authorsDao.findAuthorIdByName(conn, request.getAuthorName());
+        if (authorId == null) {
+            // Create a new author
+            Author newAuthor = new Author(0, request.getAuthorName(), "Unknown");
+            authorId = authorsDao.addAuthor(conn, newAuthor);
+            if (authorId == -1) {
+                throw new SQLException("Failed to create new author");
+            }
+        }
+        
+        // Check if the book already exists by title and author_id
+        String checkSql = "SELECT book_id FROM Books WHERE title = ? AND author_id = ?";
+        try (PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+            checkStmt.setString(1, request.getBookTitle());
+            checkStmt.setInt(2, authorId);
+            try (ResultSet rs = checkStmt.executeQuery()) {
+                if (rs.next()) {
+                    // Book already exists – skip insertion 
+                    return;
+                }
+            }
+        }
+        
+        // Insert the new book into the Books table linking the authorID
+        String sqlInsert = "INSERT INTO Books (title, author_id) VALUES (?, ?)";
+        try (PreparedStatement stmtInsert = conn.prepareStatement(sqlInsert)) {
+            stmtInsert.setString(1, request.getBookTitle());
+            stmtInsert.setInt(2, authorId);
+            stmtInsert.executeUpdate();
         }
     }
 

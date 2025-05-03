@@ -1,11 +1,16 @@
 package com.library.dao;
 
-import com.library.model.Book;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.library.model.Book;
 
 public class BooksDAO {
 
@@ -77,7 +82,7 @@ public class BooksDAO {
 
     // Get available books with author info
     public List<Map<String, Object>> getAvailableBooksWithAuthors(Connection conn) throws SQLException {
-        String sql = "SELECT b.*, a.name AS author_name FROM books b " + "JOIN authors a ON b.author_id = a.author_id " + "WHERE b.is_available = true";
+        String sql = "SELECT b.*, a.name AS author_name FROM Books b " + "JOIN authors a ON b.author_id = a.author_id " + "WHERE b.is_available = true";
 
         List<Map<String, Object>> books = new ArrayList<>();
         try (Statement stmt = conn.createStatement();

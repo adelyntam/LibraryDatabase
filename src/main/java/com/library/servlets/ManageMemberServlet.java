@@ -1,19 +1,21 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 import com.library.dao.MembersDAO;
 import com.library.model.Member;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/views/manageMember")
+@WebServlet("/manageMember")
 public class ManageMemberServlet extends HttpServlet {
     private MembersDAO membersDAO;
 
@@ -26,35 +28,22 @@ public class ManageMemberServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String searchTerm = request.getParameter("searchTerm");
-        String term = searchTerm.trim();
-        List<Member> memberList = Collections.emptyList();
-
         try (Connection conn = DBUtil.getConnection()) {
-
+            String searchTerm = request.getParameter("searchTerm");
+            
+            List<Member> members;
             if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-                try {
-                    // If it parses as an integer, look up by ID
-                    int memberId = Integer.parseInt(searchTerm.trim());
-                    Member m = membersDAO.getMemberById(conn, memberId);
-                    if (m != null) {
-                        memberList = List.of(m);
-                    }
-                } catch (NumberFormatException e) {
-                    // Otherwise, search by name
-                    memberList = membersDAO.searchByName(conn, term);
-                }
+                members = membersDAO.searchByName(conn, searchTerm);
             } else {
-                // No search term: list all members
-                memberList = membersDAO.getAllMembers(conn);
+                members = membersDAO.getAllMembers(conn);
             }
+            
+            request.setAttribute("memberList", members);
+            request.getRequestDispatcher("/views/manageMemberView.jsp")
+                   .forward(request, response);
         } catch (SQLException e) {
-            throw new ServletException("Error loading member list", e);
+            throw new ServletException("Database error", e);
         }
-
-        request.setAttribute("memberList", memberList);
-        request.getRequestDispatcher("/views/manageMemberView.jsp")
-                .forward(request, response);
     }
 
     @Override

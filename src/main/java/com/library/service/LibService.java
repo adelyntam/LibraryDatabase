@@ -224,4 +224,10 @@ public class LibService {
             authorsDao.deleteAuthor(conn, authorId);
         }
     }
+
+    public void updateOrderRequestStatus(int requestId, String newStatus) throws SQLException {
+        try (Connection conn = DBUtil.getConnection()) {
+            orderRequestsDao.fulfillRequest(conn, requestId);
+        }
+    }
 }

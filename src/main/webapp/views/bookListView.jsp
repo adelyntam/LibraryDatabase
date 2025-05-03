@@ -9,7 +9,7 @@
 
     <!-- Search form -->
     <form class="row g-3 mb-4"
-          action="${pageContext.request.contextPath}/views/bookListView.jsp"
+          action="<c:url value='/bookListView'/>"
           method="get">
         <div class="col-auto">
             <label for="searchTitle" class="visually-hidden">Title</label>
@@ -37,7 +37,6 @@
                 <th>Genre</th>
                 <th>Publish Year</th>
                 <th>Status</th>
-                <th>Borrow</th>
             </tr>
         </thead>
         <tbody>

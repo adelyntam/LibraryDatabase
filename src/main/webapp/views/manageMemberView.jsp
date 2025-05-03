@@ -10,7 +10,7 @@
   <h1>Manage Members</h1>
   <form
     class="row g-3 align-items-center mb-3"
-    action="${pageContext.request.contextPath}/views/manageMember"
+    action="<c:url value='/manageMember'/>"
     method="get"
   >
     <div class="col-auto">
@@ -20,7 +20,7 @@
         id="searchTerm"
         name="searchTerm"
         class="form-control"
-        placeholder="MemberID or Name"
+        placeholder="Name"
         value="${fn:escapeXml(param.searchTerm)}"
       />
     </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="col-auto ms-auto">
       <a
-        href="${pageContext.request.contextPath}/views/manageMemberEdit.jsp"
+      href="<c:url value='/manageMemberEdit?memberId=${0}'/>"
         class="btn btn-primary"
       >Add New</a>
     </div>
@@ -51,17 +51,11 @@
         <tr>
           <td>
             <a
-              href="${pageContext.request.contextPath}/views/manageMemberEdit.jsp?memberId=${mem.memberId}"
-            >${mem.memberId}</a>
+              href="<c:url value='/manageMemberEdit?memberId=${mem.memberId}'/>">${mem.memberId}</a>
           </td>
           <td>${mem.name}</td>
           <td>${mem.email}</td>
-          <td>
-            <fmt:formatDate
-              value="${mem.membershipDate}"
-              pattern="yyyy-MM-dd"
-            />
-          </td>
+          <td>${mem.membershipDate}</td>
         </tr>
       </c:forEach>
 

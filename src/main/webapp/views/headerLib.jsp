@@ -1,25 +1,27 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
           <div class="container">
               <ul class="nav nav-pills mb-4">
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageMemberView.jsp">Members</a>
+                  <a class="nav-link" href="<c:url value='/manageMember'/>">Members</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageBooksView.jsp">Books</a>
+                  <a class="nav-link" href="<c:url value='/manageBooks'/>">Books</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageAuthorsView.jsp">Authors</a>
+                  <a class="nav-link" href="<c:url value='/manageAuthors'/>">Authors</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageRequestBookView.jsp">Requests</a>
+                  <a class="nav-link" href="<c:url value='/manageRequestBook'/>">Requests</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageBorrowRecordsView.jsp">Borrows</a>
+                  <a class="nav-link" href="<c:url value='/manageBorrowRecords'/>">Borrows</a>
                 </li>
               </ul>
           </div>
       </nav>
   </div>
+</html>
+

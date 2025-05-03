@@ -11,6 +11,12 @@ public class DBUtil {
 
     // Load DB config
     static {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL driver not on classpath", e);
+        }
+
         try (InputStream input = DBUtil.class.getClassLoader().getResourceAsStream(DB_CONFIG_FILE)) {
             if (input == null) {
                 throw new RuntimeException("Failed to load " + DB_CONFIG_FILE);

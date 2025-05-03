@@ -9,7 +9,7 @@
   <!-- Title -->
   <h1>
     <c:choose>
-      <c:when test="${not empty member.memberId}">
+      <c:when test="${member.memberId != 0}">
         Edit Member
       </c:when>
       <c:otherwise>
@@ -24,7 +24,7 @@
     class="mt-4"
   >
     <!-- if editing, include the ID -->
-    <c:if test="${not empty member.memberId}">
+    <c:if test="${member.memberId != 0}">
       <input
         type="hidden"
         name="memberId"
@@ -69,32 +69,25 @@
 
     <button type="submit" class="btn btn-primary">
       <c:choose>
-        <c:when test="${not empty member.memberId}">Update</c:when>
+        <c:when test="${member.memberId != 0}">Update</c:when>
         <c:otherwise>Create</c:otherwise>
       </c:choose>
     </button>
     <a
-      href="${pageContext.request.contextPath}/views/manageMemberView"
+      href="${pageContext.request.contextPath}/manageMember"
       class="btn btn-secondary ms-2"
     >Cancel</a>
 
     <!-- only show Delete when editing -->
-    <c:if test="${not empty member.memberId}">
-      <form
-        action="${pageContext.request.contextPath}/manageMemberDelete"
-        method="post"
-        style="display:inline;"
-        onsubmit="return confirm('Are you sure you want to delete this member?');"
+    <c:if test="${member.memberId != 0}">
+      <button
+        type="submit"
+        class="btn btn-danger float-end"
+        formaction="${pageContext.request.contextPath}/manageMemberDelete"
+        formmethod="post"
       >
-        <input
-          type="hidden"
-          name="memberId"
-          value="${member.memberId}"
-        />
-        <button type="submit" class="btn btn-danger float-end">
-          Delete
-        </button>
-      </form>
+        Delete
+      </button>
     </c:if>
 
   </form>

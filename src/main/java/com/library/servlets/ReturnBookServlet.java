@@ -1,18 +1,30 @@
-package com.library.servlet;
+package com.library.servlets;
+
+import java.io.IOException;
+import java.sql.Connection;
 
 import com.library.dao.BooksDAO;
 import com.library.dao.BorrowRecordsDAO;
 import com.library.util.DBUtil;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.sql.Connection;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/returnBookView")
+@WebServlet("/returnBook")
 public class ReturnBookServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Forward GET requests to the returnBookView.jsp page.
+        request.getRequestDispatcher("/views/returnBookView.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         int recordId = Integer.parseInt(request.getParameter("recordId"));
         int bookId = Integer.parseInt(request.getParameter("bookId"));
 
@@ -28,7 +40,8 @@ public class ReturnBookServlet extends HttpServlet {
             BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
             borrowDAO.returnBook(conn, recordId);
 
-            response.sendRedirect("/views/bookListView.jsp");
+            // Redirect with context path
+            response.sendRedirect(request.getContextPath() + "/bookListView");
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,59 +1,43 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
 import com.library.dao.BooksDAO;
 import com.library.model.Book;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.List;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/manageBooks")
 public class ManageBooksServlet extends HttpServlet {
-    private BooksDAO booksDAO;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        booksDAO = new BooksDAO();
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String term = request.getParameter("searchTerm");
-        List<Book> bookList = Collections.emptyList();
+        List<Book> bookList;
 
         try (Connection conn = DBUtil.getConnection()) {
-            if (term != null && !term.trim().isEmpty()) {
-                String t = term.trim();
-                try {
-                    // if it's a number, search by ID
-                    int id = Integer.parseInt(t);
-                    Book b = booksDAO.getBookById(conn, id);
-                    if (b != null) {
-                        bookList = List.of(b);
-                    }
-                } catch (NumberFormatException e) {
-                    // otherwise search by title
-                    bookList = booksDAO.searchByTitle(conn, t);
-                }
+            BooksDAO booksDAO = new BooksDAO();
+            String searchTerm = request.getParameter("searchTerm");
+
+            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                bookList = booksDAO.searchByTitle(conn, searchTerm.trim());
             } else {
-                // no term → list all
                 bookList = booksDAO.getAllBooks(conn);
             }
-        } catch (SQLException e) {
-            throw new ServletException("Error loading book list", e);
-        }
 
-        request.setAttribute("bookList", bookList);
-        request.getRequestDispatcher("/views/manageBooksView.jsp")
-                .forward(request, response);
+            request.setAttribute("bookList", bookList);
+            request.getRequestDispatcher("/views/manageBooksView.jsp")
+                    .forward(request, response);
+        } catch (SQLException e) {
+            throw new ServletException("Database error", e);
+        }
     }
 
     @Override

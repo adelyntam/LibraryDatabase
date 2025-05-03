@@ -4,7 +4,9 @@ import com.library.model.BorrowRecord;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BorrowRecordsDAO {
     // Create borrow record, return id
@@ -84,5 +86,63 @@ public class BorrowRecordsDAO {
         }
         return null;
     }
+
+    public List<Map<String,Object>> getAllBorrowRecordsWithDetails(Connection conn) throws SQLException {
+        String sql =
+                "SELECT br.record_id, b.title AS book_title, m.name AS borrower_name, " +
+                        "       br.borrow_date, br.return_date, br.status " +
+                        "FROM BorrowRecords br " +
+                        "  JOIN Books b   ON br.book_id   = b.book_id " +
+                        "  JOIN Members m ON br.member_id = m.member_id " +
+                        "ORDER BY br.borrow_date DESC";
+
+        List<Map<String,Object>> records = new ArrayList<>();
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs   = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Map<String,Object> rec = new HashMap<>();
+                rec.put("recordId",     rs.getInt("record_id"));
+                rec.put("bookTitle",    rs.getString("book_title"));
+                rec.put("borrowerName", rs.getString("borrower_name"));
+                rec.put("borrowDate",   rs.getDate("borrow_date"));
+                rec.put("returnDate",   rs.getDate("return_date"));
+                rec.put("status",       rs.getString("status"));
+                records.add(rec);
+            }
+        }
+        return records;
+    }
+
+    public List<Map<String,Object>> searchByBookOrMember(Connection conn, String term) throws SQLException {
+        String sql =
+                "SELECT br.record_id, b.title AS book_title, m.name AS borrower_name, " +
+                        "       br.borrow_date, br.return_date, br.status " +
+                        "FROM BorrowRecords br " +
+                        "  JOIN Books b   ON br.book_id   = b.book_id " +
+                        "  JOIN Members m ON br.member_id = m.member_id " +
+                        "WHERE b.title LIKE ? OR m.name LIKE ? " +
+                        "ORDER BY br.borrow_date DESC";
+
+        List<Map<String,Object>> records = new ArrayList<>();
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            String pattern = "%" + term + "%";
+            stmt.setString(1, pattern);
+            stmt.setString(2, pattern);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Map<String,Object> rec = new HashMap<>();
+                    rec.put("recordId",     rs.getInt("record_id"));
+                    rec.put("bookTitle",    rs.getString("book_title"));
+                    rec.put("borrowerName", rs.getString("borrower_name"));
+                    rec.put("borrowDate",   rs.getDate("borrow_date"));
+                    rec.put("returnDate",   rs.getDate("return_date"));
+                    rec.put("status",       rs.getString("status"));
+                    records.add(rec);
+                }
+            }
+        }
+        return records;
+    }
+
 
 }

@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="header.jsp"/>
+<jsp:include page="headerLib.jsp"/>
 
 <div class="container mt-4">
     <h1>Manage Book Requests</h1>
     <table class="table table-striped">
-        <thread>
+        <thead>
             <tr>
                 <th>Request ID</th>
                 <th>Book Title</th>
@@ -15,8 +16,8 @@
                 <th>Current Status</th>
                 <th>Update Status</th>
             </tr>
-        </thread>
-        <body>
+        </thead>
+        <tbody>
             <c:forEach var="request" items="${requestList}">
                 <tr>
                     <td>${request.requestId}</td>
@@ -34,13 +35,12 @@
                         </c:choose>
                     </td>
                     <td>
-                        <form action="updateRequestStatus" method="post" class="d-flex align-items-center">
+                        <form action="${pageContext.request.contextPath}/updateRequestStatus" method="post" class="mt-4">
                             <input type="hidden" name="requestId" value="${request.requestId}" />
                             <select name="newStatus" class="form-select form-select-sm" onchange="this.form.submit()" required>
                                 <option value="">Select</option>
                                 <option value="Pending" ${request.status eq 'Pending' ? 'selected' : ''}>Pending</option>
                                 <option value="Fulfilled" ${request.status eq 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
-
                             </select>
                         </form>
                     </td>

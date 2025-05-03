@@ -1,55 +1,77 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <jsp:include page="header.jsp"/>
 
 <div class="container mt-4">
-    <h1>Available Books</h1>
+    <h1>All Books</h1>
+
+    <!-- Search form -->
+    <form class="row g-3 mb-4"
+          action="${pageContext.request.contextPath}/views/bookListView.jsp"
+          method="get">
+        <div class="col-auto">
+            <label for="searchTitle" class="visually-hidden">Title</label>
+            <input
+                type="text"
+                id="searchTitle"
+                name="searchTitle"
+                class="form-control"
+                placeholder="Search by Title"
+                value="${fn:escapeXml(param.searchTitle)}"
+            />
+        </div>
+        <div class="col-auto">
+            <button type="submit" class="btn btn-success mb-3">Search</button>
+        </div>
+    </form>
+
+    <!-- Books table -->
     <table class="table table-striped">
-        <thread>
+        <thead>
             <tr>
                 <th>BookID</th>
                 <th>Title</th>
-                <th>Author</th>
+                <th>AuthorID</th>
                 <th>Genre</th>
                 <th>Publish Year</th>
                 <th>Status</th>
                 <th>Borrow</th>
             </tr>
-        </thread>
-        <body>
+        </thead>
+        <tbody>
             <c:forEach var="book" items="${bookList}">
                 <tr>
-                    <td>${book.book_id}</td>
-                    <td>${book.title}</td>
-                    <td>${book.author}</td>
-                    <td>${book.genre}</td>
-                    <td>${book.publish_year}</td>
+                    <td>${book.bookId}</td>
+                    <td>${fn:escapeXml(book.title)}</td>
+                    <td>${book.authorId}</td>
+                    <td>${fn:escapeXml(book.genre)}</td>
+                    <td>${book.publishYear}</td>
                     <td>
                         <c:choose>
-                            <c:when test="${book.is_available}">
-                            <!-- Borrow Form -->
-                            <form action="borrow" method="post" style="display: inline;">
-                                <input type="hidden" name="bookId" value="${book.bookId}" />
-                                <button type="submit" class="btn btn-success btn-sm">Borrow</button>
-                            </form>
+                            <c:when test="${book.available}">
+                                <a href="${pageContext.request.contextPath}/borrowBookView?bookId=${book.bookId}"
+                                   style="display:inline-block;width:30px;height:30px;background-color:limegreen;border-radius:3px;"></a>
                             </c:when>
                             <c:otherwise>
-                                <button class="btn btn-secondary btn-sm" disabled>Unavailable</button>
+                                <div style="width:30px;height:30px;background-color:crimson;border-radius:3px;"></div>
                             </c:otherwise>
                         </c:choose>
                     </td>
-                    <td>
-                        <a href="library?action=view&id=${book.bookId}" class="btn btn-primary btn-sm">
-                            View
-                        </a>
-                    </td>
                 </tr>
             </c:forEach>
-        </body>
+
+            <c:if test="${empty bookList}">
+                <tr>
+                    <td colspan="7" class="text-center text-muted">
+                        No books found.
+                    </td>
+                </tr>
+            </c:if>
+        </tbody>
     </table>
 </div>
-
 
 <jsp:include page="footer.jsp"/>
 

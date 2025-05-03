@@ -11,13 +11,13 @@
                   <a class="nav-link" href="${pageContext.request.contextPath}/views/manageBooksView.jsp">Books</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageAuthors.jsp">Authors</a>
+                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageAuthorsView.jsp">Authors</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Lib.jsp">Requests</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageBorrowRecords.jsp">Borrow Records</a>
+                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageBorrowsView.jsp">Borrow Records</a>
                 </li>
               </ul>
           </div>

@@ -2,6 +2,8 @@ package com.library.dao;
 
 import com.library.model.Author;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthorsDAO {
     // Create author, return auto-gen key
@@ -61,4 +63,59 @@ public class AuthorsDAO {
         }
         return null;
     }
+
+    /**
+     * Search authors by (partial) name match.
+     */
+    public List<Author> searchByName(Connection conn, String namePattern) throws SQLException {
+        List<Author> list = new ArrayList<>();
+        String sql = "SELECT * FROM Authors WHERE name LIKE ? ORDER BY author_id";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, "%" + namePattern + "%");
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new Author(
+                            rs.getInt("author_id"),
+                            rs.getString("name"),
+                            rs.getString("nationality")
+                    ));
+                }
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Retrieve all authors.
+     */
+    public List<Author> getAllAuthors(Connection conn) throws SQLException {
+        List<Author> list = new ArrayList<>();
+        String sql = "SELECT * FROM Authors ORDER BY author_id";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                list.add(new Author(
+                        rs.getInt("author_id"),
+                        rs.getString("name"),
+                        rs.getString("nationality")
+                ));
+            }
+        }
+        return list;
+    }
+
+    /**
+     * Update an existing author’s name and nationality.
+     */
+    public void updateAuthor(Connection conn, Author author) throws SQLException {
+        String sql = "UPDATE Authors SET name = ?, nationality = ? WHERE author_id = ?";
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, author.getName());
+            stmt.setString(2, author.getNationality());
+            stmt.setInt(3, author.getAuthorId());
+            stmt.executeUpdate();
+        }
+    }
+
+
 }

@@ -26,7 +26,7 @@
       />
     </div>
     <div class="col-auto">
-      <button type="submit" class="btn btn-primary">Search</button>
+      <button type="submit" class="btn btn-success">Search</button>
     </div>
   </form>
 

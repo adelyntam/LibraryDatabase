@@ -14,7 +14,7 @@
                   <a class="nav-link" href="${pageContext.request.contextPath}/views/manageAuthorsView.jsp">Authors</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/views/requestBookView_Lib.jsp">Requests</a>
+                  <a class="nav-link" href="${pageContext.request.contextPath}/views/manageRequestBookView.jsp">Requests</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="${pageContext.request.contextPath}/views/manageBorrowRecordsView.jsp">Borrows</a>

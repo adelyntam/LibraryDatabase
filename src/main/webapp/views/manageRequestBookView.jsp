@@ -35,13 +35,12 @@
                         </c:choose>
                     </td>
                     <td>
-                        <form action="updateRequestStatus" method="post" class="d-flex align-items-center">
+                        <form action="${pageContext.request.contextPath}/updateRequestStatus" method="post" class="mt-4">
                             <input type="hidden" name="requestId" value="${request.requestId}" />
                             <select name="newStatus" class="form-select form-select-sm" onchange="this.form.submit()" required>
                                 <option value="">Select</option>
                                 <option value="Pending" ${request.status eq 'Pending' ? 'selected' : ''}>Pending</option>
                                 <option value="Fulfilled" ${request.status eq 'Fulfilled' ? 'selected' : ''}>Fulfilled</option>
-
                             </select>
                         </form>
                     </td>

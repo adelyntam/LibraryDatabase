@@ -43,7 +43,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                        href="${pageContext.request.contextPath}/views/manageMemberView.jsp">
+                        href="${pageContext.request.contextPath}/manageLogin">
                        Manage
                     </a>
                 </li>

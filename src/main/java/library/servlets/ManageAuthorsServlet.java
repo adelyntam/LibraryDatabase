@@ -19,8 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class ManageAuthorsServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Author> authorList;
         try (Connection conn = DBUtil.getConnection()) {
             AuthorsDAO authorsDAO = new AuthorsDAO();
@@ -32,16 +31,14 @@ public class ManageAuthorsServlet extends HttpServlet {
                 authorList = authorsDAO.getAllAuthors(conn);
             }
             request.setAttribute("authorList", authorList);
-            request.getRequestDispatcher("/views/manageAuthorsView.jsp")
-                   .forward(request, response);
+            request.getRequestDispatcher("/views/manageAuthorsView.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Database error", e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // allow POST for search as well
         doGet(req, resp);
     }

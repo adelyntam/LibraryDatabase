@@ -22,8 +22,7 @@ public class HistoryServlet extends HttpServlet {
         // If no memberId is provided, show the history page without error
         if (memberIdParam == null || memberIdParam.trim().isEmpty()) {
             request.setAttribute("historyList", new java.util.ArrayList<>());
-            request.getRequestDispatcher("/views/historyView.jsp")
-                .forward(request, response);
+            request.getRequestDispatcher("/views/historyView.jsp").forward(request, response);
             return;
         }
         
@@ -36,20 +35,17 @@ public class HistoryServlet extends HttpServlet {
                 BorrowRecordsDAO dao = new BorrowRecordsDAO();
                 java.util.List<java.util.Map<String, Object>> historyList = dao.getBorrowHistoryDetailed(conn, memberId);
                 request.setAttribute("historyList", historyList);
-                request.getRequestDispatcher("/views/historyView.jsp")
-                       .forward(request, response);
+                request.getRequestDispatcher("/views/historyView.jsp").forward(request, response);
             } finally {
                 DBUtil.close(conn);
             }
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Invalid MemberID");
-            request.getRequestDispatcher("/views/error.jsp")
-                   .forward(request, response);
+            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Could not load history: " + e.getMessage());
-            request.getRequestDispatcher("/views/error.jsp")
-                   .forward(request, response);
+            request.getRequestDispatcher("/views/error.jsp").forward(request, response);
         }
     }
 }

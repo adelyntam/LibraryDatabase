@@ -43,16 +43,14 @@ public class ManageAuthorsEditServlet extends HttpServlet {
         }
 
         request.setAttribute("author", author);
-        request.getRequestDispatcher("/views/manageAuthorsEditView.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/views/manageAuthorsEditView.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String idParam      = request.getParameter("authorId");
-        String name         = request.getParameter("name");
-        String nationality  = request.getParameter("nationality");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("authorId");
+        String name = request.getParameter("name");
+        String nationality = request.getParameter("nationality");
 
         try (Connection conn = DBUtil.getConnection()) {
             if (idParam != null && !idParam.isEmpty()) {

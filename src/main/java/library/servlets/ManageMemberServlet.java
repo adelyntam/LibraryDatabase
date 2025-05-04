@@ -26,8 +26,7 @@ public class ManageMemberServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (Connection conn = DBUtil.getConnection()) {
             String searchTerm = request.getParameter("searchTerm");
             
@@ -39,16 +38,14 @@ public class ManageMemberServlet extends HttpServlet {
             }
             
             request.setAttribute("memberList", members);
-            request.getRequestDispatcher("/views/manageMemberView.jsp")
-                   .forward(request, response);
+            request.getRequestDispatcher("/views/manageMemberView.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Database error", e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 }

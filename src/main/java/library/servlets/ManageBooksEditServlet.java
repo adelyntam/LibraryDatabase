@@ -25,8 +25,7 @@ public class ManageBooksEditServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String idParam = request.getParameter("bookId");
         Book book = new Book();
         if (idParam != null && !idParam.isEmpty()) {
@@ -40,32 +39,28 @@ public class ManageBooksEditServlet extends HttpServlet {
             }
         }
         request.setAttribute("book", book);
-        request.getRequestDispatcher("/views/manageBooksEditView.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/views/manageBooksEditView.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String idParam     = request.getParameter("bookId");
-        String title       = request.getParameter("title");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String idParam = request.getParameter("bookId");
+        String title = request.getParameter("title");
         String authorIdStr = request.getParameter("authorId");
-        String genre       = request.getParameter("genre");
-        String yearStr     = request.getParameter("publishYear");
+        String genre = request.getParameter("genre");
+        String yearStr = request.getParameter("publishYear");
 
         try (Connection conn = DBUtil.getConnection()) {
-            int authorId   = Integer.parseInt(authorIdStr);
+            int authorId = Integer.parseInt(authorIdStr);
             int publishYear = Integer.parseInt(yearStr);
 
             if (idParam != null && !idParam.isEmpty()) {
                 // update existing
                 int bookId = Integer.parseInt(idParam);
-                booksDAO.updateBook(conn,
-                        new Book(bookId, title, authorId, genre, publishYear, true));
+                booksDAO.updateBook(conn, new Book(bookId, title, authorId, genre, publishYear, true));
             } else {
                 // create new (available = true by default) default bookID is 0 (for autoincrement)
-                booksDAO.addBook(conn,
-                        new Book(0,title, authorId, genre, publishYear, true));
+                booksDAO.addBook(conn, new Book(0,title, authorId, genre, publishYear, true));
             }
 
             response.sendRedirect(request.getContextPath() + "/manageBooks");

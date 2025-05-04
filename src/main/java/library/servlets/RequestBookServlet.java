@@ -18,18 +18,15 @@ import jakarta.servlet.http.HttpServletResponse;
 public class RequestBookServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Show the "Request a New Book" form
-        request.getRequestDispatcher("/views/requestBookView.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/views/requestBookView.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String member_id = request.getParameter("member_id");
-        String book_title  = request.getParameter("book_title");
+        String book_title = request.getParameter("book_title");
         String author_name = request.getParameter("author_name");
         LocalDate requestDate = LocalDate.now();
 

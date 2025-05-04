@@ -26,8 +26,7 @@ public class ManageRequestsServlet extends HttpServlet {
     }
     
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try (Connection conn = DBUtil.getConnection()) {
             // Retrieve pending requests (adjust if you want all requests)
             List<OrderRequest> requestList = requestsDAO.getAllRequests(conn);
@@ -39,11 +38,10 @@ public class ManageRequestsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestIdStr = request.getParameter("requestId");
         String newStatus = request.getParameter("newStatus");
-        if(requestIdStr == null || requestIdStr.isEmpty()){
+        if (requestIdStr == null || requestIdStr.isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/manageRequestBook");
             return;
         }

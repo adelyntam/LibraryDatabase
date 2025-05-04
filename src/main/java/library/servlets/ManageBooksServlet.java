@@ -18,8 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/manageBooks")
 public class ManageBooksServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Book> bookList;
 
         try (Connection conn = DBUtil.getConnection()) {
@@ -33,16 +32,14 @@ public class ManageBooksServlet extends HttpServlet {
             }
 
             request.setAttribute("bookList", bookList);
-            request.getRequestDispatcher("/views/manageBooksView.jsp")
-                    .forward(request, response);
+            request.getRequestDispatcher("/views/manageBooksView.jsp").forward(request, response);
         } catch (SQLException e) {
             throw new ServletException("Database error", e);
         }
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
 }

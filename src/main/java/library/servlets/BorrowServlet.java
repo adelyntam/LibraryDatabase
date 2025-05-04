@@ -49,11 +49,11 @@ public class BorrowServlet extends HttpServlet {
             try {
                 conn = DBUtil.getConnection();
 
-                // 1. Set book as unavailable
+                // Set book as unavailable
                 BooksDAO booksDAO = new BooksDAO();
                 booksDAO.updateAvailability(conn, bookId, false);
 
-                // 2. Create borrow record
+                // Create borrow record
                 BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
                 borrowDAO.borrowBook(conn, bookId, memberId);
 

@@ -27,7 +27,7 @@ public class DBUtil {
         }
     }
 
-    // Get new db conn
+    // Get new DB conn using manager
     public static Connection getConnection() throws SQLException {
         String url = properties.getProperty("db.url");
         String usr = properties.getProperty("db.user");
@@ -41,7 +41,9 @@ public class DBUtil {
             try {
                 conn.close();
             }
-            catch (SQLException e) { e.printStackTrace(); }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

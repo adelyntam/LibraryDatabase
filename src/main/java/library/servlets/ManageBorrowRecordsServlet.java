@@ -26,8 +26,7 @@ public class ManageBorrowRecordsServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String term = request.getParameter("searchTerm");
         List<Map<String,Object>> recordList;
 
@@ -42,13 +41,11 @@ public class ManageBorrowRecordsServlet extends HttpServlet {
         }
 
         request.setAttribute("recordList", recordList);
-        request.getRequestDispatcher("/views/manageBorrowRecordsView.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/views/manageBorrowRecordsView.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // allow POST-powered search too
         doGet(req, resp);
     }

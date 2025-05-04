@@ -16,15 +16,13 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/returnBook")
 public class ReturnBookServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Forward GET requests to the returnBookView.jsp page.
         request.getRequestDispatcher("/views/returnBookView.jsp").forward(request, response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int recordId = Integer.parseInt(request.getParameter("recordId"));
         int bookId = Integer.parseInt(request.getParameter("bookId"));
 
@@ -32,11 +30,11 @@ public class ReturnBookServlet extends HttpServlet {
         try {
             conn = DBUtil.getConnection();
 
-            // 1. Mark the book as available
+            // Mark the book as available
             BooksDAO booksDAO = new BooksDAO();
             booksDAO.updateAvailability(conn, bookId, true);
 
-            // 2. Mark the borrow record as returned
+            // Mark the borrow record as returned
             BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
             borrowDAO.returnBook(conn, recordId);
 

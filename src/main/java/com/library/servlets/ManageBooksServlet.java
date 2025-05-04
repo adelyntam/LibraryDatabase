@@ -15,30 +15,34 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/bookListView")
-public class AllBooksServlet extends HttpServlet {
+@WebServlet("/manageBooks")
+public class ManageBooksServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String searchTitle = request.getParameter("searchTitle");
-        List<Book> books;
+        List<Book> bookList;
 
         try (Connection conn = DBUtil.getConnection()) {
             BooksDAO booksDAO = new BooksDAO();
+            String searchTerm = request.getParameter("searchTerm");
 
-            if (searchTitle != null && !searchTitle.trim().isEmpty()) {
-                // search by title
-                books = booksDAO.searchByTitle(conn, searchTitle.trim());
+            if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+                bookList = booksDAO.searchByTitle(conn, searchTerm.trim());
             } else {
-                // show all on initial load or empty search
-                books = booksDAO.getAllBooks(conn);
+                bookList = booksDAO.getAllBooks(conn);
             }
 
-            request.setAttribute("bookList", books);
-            request.getRequestDispatcher("/views/bookListView.jsp")
+            request.setAttribute("bookList", bookList);
+            request.getRequestDispatcher("/views/manageBooksView.jsp")
                     .forward(request, response);
         } catch (SQLException e) {
-            throw new ServletException("Error loading books", e);
+            throw new ServletException("Database error", e);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doGet(req, resp);
     }
 }

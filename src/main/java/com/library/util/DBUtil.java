@@ -12,35 +12,27 @@ public class DBUtil {
     // Load DB config
     static {
         try {
-            // Load driver first
             Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("MySQL driver not on classpath", e);
+        }
 
-            // Then load properties
-            try (InputStream input = DBUtil.class.getClassLoader().getResourceAsStream(DB_CONFIG_FILE)) {
-                if (input == null) {
-                    throw new RuntimeException("Failed to load " + DB_CONFIG_FILE);
-                }
-                properties.load(input);
+        try (InputStream input = DBUtil.class.getClassLoader().getResourceAsStream(DB_CONFIG_FILE)) {
+            if (input == null) {
+                throw new RuntimeException("Failed to load " + DB_CONFIG_FILE);
             }
-        } catch (ClassNotFoundException | IOException e) {
-            throw new RuntimeException("Initialization failed", e);
+            properties.load(input);
+        } catch (IOException e) {
+            throw new RuntimeException("Error reading DB config", e);
         }
     }
 
     // Get new db conn
     public static Connection getConnection() throws SQLException {
-        String baseUrl = properties.getProperty("db.url");
-        String url = baseUrl + "?useSSL=false" +
-                "&allowPublicKeyRetrieval=true" +
-                "&serverTimezone=UTC" +
-                "&useLegacyDatetimeCode=false";
-
-        String user = properties.getProperty("db.user");
-        String password = properties.getProperty("db.password");
-
-        System.out.println("Connecting to: " + url);
-
-        return DriverManager.getConnection(url, user, password);
+        String url = properties.getProperty("db.url");
+        String usr = properties.getProperty("db.user");
+        String pw = properties.getProperty("db.password");
+        return DriverManager.getConnection(url, usr, pw);
     }
 
     // Close resources

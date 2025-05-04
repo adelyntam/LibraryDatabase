@@ -18,7 +18,7 @@ CREATE TABLE Members (
 member_id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100) NOT NULL,
 email VARCHAR(100) NOT NULL,
-membership_date DATE NOT NULL,
+membership_date DATE NOT NULL DEFAULT (CURRENT_DATE),
 CONSTRAINT unique_email UNIQUE (email)
 );
 
@@ -26,8 +26,8 @@ CREATE TABLE Books (
 book_id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255) NOT NULL,
 author_id INT NOT NULL,
-genre VARCHAR(50),
-publish_year INT NOT NULL,
+genre VARCHAR(50) DEFAULT("General"),
+publish_year INT NOT NULL DEFAULT (YEAR(CURRENT_DATE)),
 is_available BOOLEAN DEFAULT TRUE,
 CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES Authors(author_id),
 CONSTRAINT unique_title_author UNIQUE (title, author_id)
@@ -40,9 +40,10 @@ member_id INT NOT NULL,
 borrow_date DATE NOT NULL,
 return_date DATE,
 status ENUM('borrowed', 'returned') NOT NULL DEFAULT 'borrowed',
+active TINYINT AS (CASE WHEN status = 'borrowed' THEN 1 ELSE NULL END),
+UNIQUE KEY unique_active_borrow (book_id, member_id, active),
 CONSTRAINT fk_borrowed_book FOREIGN KEY (book_id) REFERENCES Books(book_id),
 CONSTRAINT fk_borrowing_member FOREIGN KEY (member_id) REFERENCES Members(member_id),
-CONSTRAINT unique_active_borrow UNIQUE (book_id, member_id, status),
 CONSTRAINT check_return_date CHECK (return_date IS NULL OR return_date >= borrow_date)
 );
 
@@ -51,7 +52,7 @@ request_id INT AUTO_INCREMENT PRIMARY KEY,
 member_id INT NOT NULL,
 book_title VARCHAR(255) NOT NULL,
 author_name VARCHAR(100) NOT NULL,
-request_date DATE NOT NULL,
+request_date DATE NOT NULL DEFAULT (CURRENT_DATE),
 status ENUM('pending', 'fulfilled') NOT NULL DEFAULT 'pending',
 CONSTRAINT fk_requesting_member FOREIGN KEY (member_id) REFERENCES Members(member_id)
 );

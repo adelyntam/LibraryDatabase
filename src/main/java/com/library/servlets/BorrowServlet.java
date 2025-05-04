@@ -1,20 +1,46 @@
 package com.library.servlets;
 
+import java.io.IOException;
+import java.sql.Connection;
+
 import com.library.dao.BooksDAO;
 import com.library.dao.BorrowRecordsDAO;
+import com.library.model.Book;
 import com.library.util.DBUtil;
 
+// Use jakarta imports to match your web.xml configuration
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.Connection;
 
 @WebServlet("/borrowBookView")
 public class BorrowServlet extends HttpServlet {
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String bookIdStr = request.getParameter("bookId");
+        if (bookIdStr != null) {
+            try (Connection conn = DBUtil.getConnection()) {
+                int bookId = Integer.parseInt(bookIdStr);
+                BooksDAO booksDAO = new BooksDAO();
+                // Retrieve book details for display
+                Book book = booksDAO.getBookById(conn, bookId);
+                request.setAttribute("book", book);
+                request.getRequestDispatcher("/views/borrowBookView.jsp").forward(request, response);
+            } catch (Exception e) {
+                request.setAttribute("error", "Error retrieving book: " + e.getMessage());
+                request.getRequestDispatcher("/views/error.jsp").forward(request, response);
+            }
+        } else {
+            request.getRequestDispatcher("/views/borrowBookView.jsp").forward(request, response);
+        }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             int bookId = Integer.parseInt(request.getParameter("bookId"));
             int memberId = Integer.parseInt(request.getParameter("memberId"));
@@ -31,7 +57,7 @@ public class BorrowServlet extends HttpServlet {
                 BorrowRecordsDAO borrowDAO = new BorrowRecordsDAO();
                 borrowDAO.borrowBook(conn, bookId, memberId);
 
-                response.sendRedirect("/views/bookListView.jsp");
+                response.sendRedirect(request.getContextPath() + "/bookListView");
 
             } finally {
                 DBUtil.close(conn);
@@ -40,7 +66,8 @@ public class BorrowServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Borrow failed: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("/views/error.jsp")
+                    .forward(request, response);
         }
     }
 }

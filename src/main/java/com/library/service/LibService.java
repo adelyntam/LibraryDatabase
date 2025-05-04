@@ -192,6 +192,12 @@ public class LibService {
         }
     }
 
+    public BorrowRecord getBorrowRecordById(int borrowRecordId) throws SQLException {
+        try (Connection conn = DBUtil.getConnection()) {
+            return borrowRecordsDao.getBorrowRecordById(conn, borrowRecordId);
+        }
+    }
+
     public void deleteBook(int bookId) throws SQLException {
         try (Connection conn = DBUtil.getConnection()) {
             conn.setAutoCommit(false);

@@ -77,6 +77,7 @@ public class Main {
 
         // Verify borrow record exists
         List<BorrowRecord> activeBorrows = libService.getActiveBorrows(testMemberId);
+        System.out.println("Active borrows for member " + activeBorrows.toString());
         if (!activeBorrows.isEmpty()) {
             testBorrowRecordId = activeBorrows.get(0).getRecordId();
             System.out.println("Created borrow record ID: " + testBorrowRecordId);

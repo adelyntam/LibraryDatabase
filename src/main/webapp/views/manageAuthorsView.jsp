@@ -51,7 +51,7 @@
         <tr>
           <td>
             <a
-              href="${pageContext.request.contextPath}/views/manageAuthorsEditView.jsp?authorId=${auth.authorId}"
+              href="${pageContext.request.contextPath}/manageAuthorsEdit?authorId=${auth.authorId}"
             >${auth.authorId}</a>
           </td>
           <td>${fn:escapeXml(auth.name)}</td>

@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.library.dao.OrderRequestsDAO;
 import com.library.model.OrderRequest;
-import com.library.service.LibService;
 import com.library.util.DBUtil;
 
 import jakarta.servlet.ServletException;
@@ -51,13 +50,13 @@ public class ManageRequestsServlet extends HttpServlet {
         int requestId = Integer.parseInt(requestIdStr);
 
         try {
-            LibService libService = new LibService();
             if ("Fulfilled".equalsIgnoreCase(newStatus)) {
                 // Fulfilling the order will add the new book as available to the Books table
-                libService.fulfillOrderRequest(requestId);
-            } else {
-                // For other statuses, update the request status (assumes updateOrderRequestStatus exists)
-                libService.updateOrderRequestStatus(requestId, newStatus);
+                try (Connection conn = DBUtil.getConnection()) {
+                    requestsDAO.fulfillRequest(conn, requestId);
+                } catch (SQLException e) {
+                    throw e;
+                }
             }
             response.sendRedirect(request.getContextPath() + "/manageRequestBook");
         } catch (SQLException e) {

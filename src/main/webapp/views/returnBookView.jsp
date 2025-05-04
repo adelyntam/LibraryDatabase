@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*, java.time.LocalDate" %>
-<%@ page import="com.library.dao.BorrowRecordsDAO, com.library.dao.BooksDAO, com.library.model.BorrowRecord, com.library.model.Book, com.library.util.DBUtil" %>
+<%@ page import="library.dao.BorrowRecordsDAO, library.dao.BooksDAO, library.model.BorrowRecord, library.model.Book, library.util.DBUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp" />
 

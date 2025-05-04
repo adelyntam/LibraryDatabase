@@ -54,7 +54,7 @@
         <tr>
           <td>
             <a
-              href="${pageContext.request.contextPath}/views/manageBooksEditView.jsp?bookId=${book.bookId}"
+              href="${pageContext.request.contextPath}/manageBooksEdit?bookId=${book.bookId}"
             >${book.bookId}</a>
           </td>
           <td>${book.title}</td>

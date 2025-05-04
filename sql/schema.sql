@@ -26,7 +26,7 @@ CREATE TABLE Books (
 book_id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255) NOT NULL,
 author_id INT NOT NULL,
-genre VARCHAR(50) DEFAULT("General"),
+genre VARCHAR(50) DEFAULT('General'),
 publish_year INT NOT NULL DEFAULT (YEAR(CURRENT_DATE)),
 is_available BOOLEAN DEFAULT TRUE,
 CONSTRAINT fk_author FOREIGN KEY (author_id) REFERENCES Authors(author_id),

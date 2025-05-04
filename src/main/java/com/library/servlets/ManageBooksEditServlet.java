@@ -34,6 +34,7 @@ public class ManageBooksEditServlet extends HttpServlet {
                 int bookId = Integer.parseInt(idParam);
                 Book b = booksDAO.getBookById(conn, bookId);
                 if (b != null) book = b;
+                System.out.println(book);
             } catch (NumberFormatException | SQLException e) {
                 throw new ServletException("Unable to load book", e);
             }
@@ -62,7 +63,7 @@ public class ManageBooksEditServlet extends HttpServlet {
                 booksDAO.updateBook(conn,
                         new Book(bookId, title, authorId, genre, publishYear, true));
             } else {
-                // create new (available = true by default) default bookID is 0 i guess
+                // create new (available = true by default) default bookID is 0 (for autoincrement)
                 booksDAO.addBook(conn,
                         new Book(0,title, authorId, genre, publishYear, true));
             }

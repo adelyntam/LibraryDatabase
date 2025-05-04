@@ -44,31 +44,4 @@ public class DBUtil {
             catch (SQLException e) { e.printStackTrace(); }
         }
     }
-
-    // Overloaded close
-    public static void close(PreparedStatement stmt) {
-        if (stmt != null) {
-            try {
-                stmt.close();
-            }
-            catch (SQLException e) { e.printStackTrace(); }
-        }
-    }
-
-    // Overloaded close
-    public static void close(ResultSet rs) {
-        if (rs != null) {
-            try {
-                rs.close();
-            }
-            catch (SQLException e) { e.printStackTrace(); }
-        }
-    }
-
-    // Close all
-    public static void close(Connection conn, PreparedStatement stmt, ResultSet rs) {
-        close(rs);
-        close(stmt);
-        close(conn);
-    }
 }

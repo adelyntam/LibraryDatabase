@@ -22,7 +22,7 @@ Setup Steps:
 5. Default url should be http://localhost:8080/library/
 6. Start MYSQL
 7. Change create_schema.sql to desired user and password
-8. Change db.properties to desired user and password
+8. Change db.properties.template to db.properties and change to desired user and password
 9. Run create_schema.sql once by using \. (path to schema.sql)
 10. Populate with sample data by running initialize_data.sql (if desired)
 11. Run Project with Tomcat (future runs skip all steps except 6 and 11)

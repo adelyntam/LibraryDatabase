@@ -42,6 +42,10 @@ Building WAR:
 
 Configuring Tomcat:
 
+![image](https://github.com/user-attachments/assets/163a37cd-1055-466d-97b3-a215382877e7)
+
+![image](https://github.com/user-attachments/assets/580d0dfb-7716-4ac2-9927-150cec633235)
+
 ![Screenshot 2025-05-04 144408](https://github.com/user-attachments/assets/6ae8a503-8d89-48e7-b013-3a6804c4d7d4)
 
 - Find path to Tomcat

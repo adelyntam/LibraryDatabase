@@ -18,7 +18,7 @@ Setup Steps:
 1. Download MYSQL (using 9.3)
 2. Download IntelliJ IDEA and Tomcat
 3. Sync Maven dependencies using pom.xml
-4. Configure Tomcat with WAR created by project after building it
+4. Configure Tomcat with WAR created by project after building it (images below)
 5. Default url should be http://localhost:8080/library/
 6. Start MYSQL
 7. Change create_schema.sql to desired user and password
@@ -52,7 +52,7 @@ Configuring Tomcat:
 
 ![Screenshot 2025-05-04 144427](https://github.com/user-attachments/assets/ecfb8b29-7864-419e-bf64-22de1b4096cc)
 
-- Deployment settings
+- Deployment settings (make sure to rename the application context to library)
   
 ![Screenshot 2025-05-04 144534](https://github.com/user-attachments/assets/2fc3125d-ed4e-471a-98b7-a571f9f0b1c2)
 ![Screenshot 2025-05-04 144544](https://github.com/user-attachments/assets/97ce3c7a-37bd-4c0d-98d9-6318657544b0)

@@ -2,9 +2,9 @@ CREATE DATABASE IF NOT EXISTS library_db;
 USE library_db;
 
 # Replace your_username and your_password with the desired fields for admin
-DROP USER IF EXISTS '157'@'%';
-CREATE USER '157'@'%' IDENTIFIED BY '157db';
-GRANT ALL PRIVILEGES ON library_db.* TO '157'@'%';
+DROP USER IF EXISTS 'your_username'@'%';
+CREATE USER 'your_username'@'%' IDENTIFIED BY 'your_password';
+GRANT ALL PRIVILEGES ON library_db.* TO 'your_username'@'%';
 FLUSH PRIVILEGES;
 
 CREATE TABLE Authors (

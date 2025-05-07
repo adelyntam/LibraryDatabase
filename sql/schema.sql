@@ -56,7 +56,8 @@ book_title VARCHAR(255) NOT NULL,
 author_name VARCHAR(100) NOT NULL,
 request_date DATE NOT NULL DEFAULT (CURRENT_DATE),
 status ENUM('pending', 'fulfilled') NOT NULL DEFAULT 'pending',
-CONSTRAINT fk_requesting_member FOREIGN KEY (member_id) REFERENCES Members(member_id)
+CONSTRAINT fk_requesting_member FOREIGN KEY (member_id) REFERENCES Members(member_id),
+CONSTRAINT unique_request UNIQUE (book_title, author_name)
 );
 
 CREATE INDEX idx_request_status ON OrderRequests(status);
